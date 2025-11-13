@@ -1,0 +1,61 @@
+# Core Framework
+Django>=4.2
+psycopg2-binary
+
+# User Management & Authentication
+django-allauth
+django-axes
+
+# Product & Category Management
+django-mptt
+django-model-utils
+
+# Payment Integration
+stripe
+django-chapa
+paypalrestsdk
+
+# Order, Shipping & Contact Info
+django-countries
+django-phonenumber-field
+
+# Search & Filtering
+django-filter
+django-haystack
+
+# Media & File Handling
+Pillow
+django-cleanup
+
+# Email & Notifications
+django-anymail
+python-dotenv
+
+# Analytics & SEO
+django-analytical
+django-meta
+
+# API Integration & Requests
+requests
+httpx
+
+# Performance & Testing
+locust
+pytest
+pytest-django
+django-debug-toolbar
+
+# Security & Extensions
+django-cors-headers
+django-extensions
+bandit
+
+# Optional Async Support
+asgiref
+
+# Social Media API Clients (optional)
+tweepy
+facebook-sdk
+instaloader
+telethon
+TikTokApi

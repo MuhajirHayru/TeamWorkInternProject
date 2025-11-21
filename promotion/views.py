@@ -12,7 +12,9 @@ import json
 #i want to develop api for events here 
 class EventCreating(generics.CreateAPIView):
     serializer_class=EventSerializer
-
+class Eventsposted(ListAPIView):
+    queryset=Event.objects.all()
+    serializer_class=EventSerializer
 
 #here i want to develop here job annoincement api endpoints ok
 class listingjobs(ListAPIView):

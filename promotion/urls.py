@@ -15,4 +15,5 @@ urlpatterns = [
     path("api/job",views.jobCreations.as_view()),
     path("jposts",views.listingjobs.as_view()),
     path("api/v1/EventCreation/",views.EventCreating.as_view()),
+    path('api/v1/Eventsposted/',views.Eventsposted.as_view()),
 ]

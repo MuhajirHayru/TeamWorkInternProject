@@ -6,15 +6,48 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
-from .models import post, Media,JobAnnouncement,News,Event
-from .serializers import PostCreateSerializer, PostSerializer,jobSerializer,EventSerializer
+from .models import post, Media,JobAnnouncement,News,Event,brand,service,product,CompetitionDetail
+from .serializers import PostCreateSerializer, PostSerializer,jobSerializer,EventSerializer,brandSerializer,serviceSerializer,ProductSerializer,competionDetailSerializer
+
 import json
+# i sstart from the brand and thre service end points
+class brandCreating(generics.CreateAPIView):
+    serializer_class=brandSerializer
+class brandsposted(ListAPIView):
+    queryset=brand.objects.all().order_by('-id')
+    serializer_class=brandSerializer
+#below this i continue serializing the service apis
+class servicesCreating(generics.CreateAPIView):
+    serializer_class=serviceSerializer
+class servicessposted(ListAPIView):
+    queryset=service.objects.all().order_by('-id')
+    serializer_class=serviceSerializer
+#below this i give you the jojb annpncement api
+class JobCreating(generics.CreateAPIView):
+    serializer_class=jobSerializer
+class Jobsposted(ListAPIView):
+    queryset=JobAnnouncement.objects.all().order_by('-id')
+    serializer_class=jobSerializer
+#below this i will give you product apis
+class productCreating(generics.CreateAPIView):
+    serializer_class=product
+class productPosted(ListAPIView):
+    queryset=product.objects.all().order_by('-id')
+    serializer_class=ProductSerializer
+# below this i will write the Competions detail Api views
+class CompetionCreating(generics.CreateAPIView):
+    serializer_class=competionDetailSerializer
+class competionsPosted(ListAPIView):
+    queryset=CompetitionDetail.objects.all().order_by('-id')
+    serializer_class=competionDetailSerializer
+
 #i want to develop api for events here 
 class EventCreating(generics.CreateAPIView):
     serializer_class=EventSerializer
 class Eventsposted(ListAPIView):
-    queryset=Event.objects.all()
+    queryset=Event.objects.all().order_by('-id')
     serializer_class=EventSerializer
+    
 
 #here i want to develop here job annoincement api endpoints ok
 class listingjobs(ListAPIView):
@@ -24,6 +57,8 @@ class listingjobs(ListAPIView):
 class createGenerics(generics.CreateAPIView):
     serializer_class = PostCreateSerializer
 #and also i teste the create test and in which i can test by the way i testeed in the postman and it is working correctly
+
+
 class CreatePostView(APIView):
     parser_classes = [MultiPartParser, FormParser]
 

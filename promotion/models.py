@@ -13,7 +13,6 @@ class Media(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     def __str__(self):
         return self.title or self.file.name
-
 class brand(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(blank=True)
@@ -69,7 +68,6 @@ class Event(models.Model):
         ('hackathon', 'Hackathon'),
         ('recognition', 'Recognition Program'),
     ]
-
     title = models.CharField(max_length=255,blank=True,null=True)
     event_type = models.CharField(max_length=50, choices=EVENT_TYPES,blank=True,null=True)
     description = models.TextField(blank=True,null=True)
@@ -80,9 +78,9 @@ class Event(models.Model):
     organizer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     registration_link = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return f"{self.title} ({self.event_type})"
-
 class CompetitionDetail(models.Model):
     event = models.OneToOneField(Event, on_delete=models.CASCADE, related_name='competition_detail')
     judging_criteria = models.TextField(blank=True, help_text="Criteria used to judge the competition")

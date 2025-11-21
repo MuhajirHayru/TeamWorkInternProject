@@ -3,12 +3,27 @@ from urllib import request
 from rest_framework import serializers
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
-from .models import post, Media, Event, product, News, JobAnnouncement
+from .models import brand, post, Media, Event, product, News, JobAnnouncement, service,CompetitionDetail
 
 class jobSerializer(serializers.ModelSerializer):
     class Meta:
         model=JobAnnouncement
         fields="__all__"
+        #the folloing serialization is for the brand
+class brandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=brand
+        fields="__all__"
+    #the following serializations is for the services
+class serviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=service
+        fields="__all__"   
+#the following is for commpetion detail serializations
+class competionDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CompetitionDetail
+        fields="__all__" 
 
 class MediaSerializer(serializers.ModelSerializer):
     file = serializers.FileField(required=False)

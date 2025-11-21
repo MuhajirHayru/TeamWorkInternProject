@@ -5,6 +5,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from .models import post, Media, Event, product, News, JobAnnouncement
 
+class jobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=JobAnnouncement
+        fields="__all__"
+
 class MediaSerializer(serializers.ModelSerializer):
     file = serializers.FileField(required=False)
 
@@ -57,9 +62,6 @@ class PostSerializer(serializers.ModelSerializer):
         if isinstance(obj.content_object, JobAnnouncement):
             return JobSerializer(obj.content_object).data
         return None
-
-
-
 class PostCreateSerializer(serializers.Serializer):
     post_title = serializers.CharField()
     post_caption = serializers.CharField()

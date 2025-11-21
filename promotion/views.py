@@ -2,12 +2,22 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, viewsets, generics
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
-from .models import post, Media
-from .serializers import PostCreateSerializer, PostSerializer
+from .models import post, Media,JobAnnouncement,News,Event
+from .serializers import PostCreateSerializer, PostSerializer,jobSerializer,EventSerializer
 import json
+#i want to develop api for events here 
+class EventCreating(generics.CreateAPIView):
+    serializer_class=EventSerializer
+
+
+#here i want to develop here job annoincement api endpoints ok
+class listingjobs(ListAPIView):
+    queryset=JobAnnouncement.objects.all()
+    serializer_class=jobSerializer
 # Generic create view (unchanged)
 class createGenerics(generics.CreateAPIView):
     serializer_class = PostCreateSerializer
@@ -61,3 +71,10 @@ class PostViewSet(viewsets.ModelViewSet):
         if status_param:
             qs = qs.filter(status=status_param)
         return qs
+
+from .serializers import jobSerializer
+from rest_framework import generics
+
+class jobCreations(generics.CreateAPIView):
+    serializer_class=jobSerializer
+

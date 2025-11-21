@@ -2,3 +2,5 @@
 -and when the admin aproves it the post will be approved and ready for public views
 -when the admin rejects the post will be rejeted and the It_officer can see the regected post requests
 
+- the api is==> http://127.0.0.1:8000/api/v1/EventCreation/
+

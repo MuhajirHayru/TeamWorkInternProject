@@ -3,7 +3,7 @@ from urllib import request
 from rest_framework import serializers
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
-from .models import brand, post, Media, Event, product, News, JobAnnouncement, service,CompetitionDetail
+from .models import brand, Media, Event, Product, News, JobAnnouncement, service,CompetitionDetail
 
 class jobSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,7 +47,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = product
+        model = Product
         fields = '__all__'
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -59,12 +59,17 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobAnnouncement
         fields = '__all__'
+        
+class NewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = '__all__'
 class PostSerializer(serializers.ModelSerializer):
     media = MediaSerializer(many=True, read_only=True)
     content_object = serializers.SerializerMethodField()
 
     class Meta:
-        model = post
+        # model = post
         fields = ['id', 'post_title', 'post_caption', 'media', 'content_object']
 
     def get_content_object(self, obj):

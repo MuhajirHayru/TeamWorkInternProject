@@ -24,16 +24,23 @@ class brand(models.Model):
     phone_number = PhoneNumberField(unique=True, region="",blank=True)
     def __str__(self):
         return self.name
-class product(models.Model):  
+from django.db import models
+from django.utils import timezone
+
+class Product(models.Model):
     name = models.CharField(max_length=200)
     features = models.TextField()
     benefits = models.TextField()
     product_url = models.URLField(blank=True, null=True)
-    price = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    identityNo = models.CharField(max_length=100, unique=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(blank=True, null=True)  # when product should expire
     def __str__(self):
-        return f" - {self.name}"
+        return self.name
+
+    @property
+    def is_expired(self):
+        """Check if product is expired."""
+        return self.expires_at and timezone.now() > self.expires_at
 class service(models.Model):   
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -120,24 +127,24 @@ class JobAnnouncement(models.Model):
     def __str__(self):
         return f"{self.title} - {self.company.name if self.company else 'Teamwork IT'}"
 
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
-class post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
-    post_date = models.DateTimeField(auto_now_add=True)
-    post_title = models.CharField(max_length=255, blank=True, null=True)
-    post_caption = models.TextField(blank=True, null=True)
-    time_limit= models.IntegerField(default=10)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-    media = models.ManyToManyField(Media, related_name='posts', blank=True)
-    status = models.CharField(max_length=20, default='draft')
-    is_fixed = models.BooleanField(default=False)   
-    fixed_until = models.DateTimeField(blank=True, null=True)  
+# from django.contrib.contenttypes.models import ContentType
+# from django.contrib.contenttypes.fields import GenericForeignKey
+# class post(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
+#     post_date = models.DateTimeField(auto_now_add=True)
+#     post_title = models.CharField(max_length=255, blank=True, null=True)
+#     post_caption = models.TextField(blank=True, null=True)
+#     time_limit= models.IntegerField(default=10)
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+#     object_id = models.PositiveIntegerField()
+#     content_object = GenericForeignKey('content_type', 'object_id')
+#     media = models.ManyToManyField(Media, related_name='posts', blank=True)
+#     status = models.CharField(max_length=20, default='draft')
+#     is_fixed = models.BooleanField(default=False)   
+#     fixed_until = models.DateTimeField(blank=True, null=True)  
 
-    def __str__(self):
-        return f"Post: {self.content_type} - {self.user.username}"
+#     def __str__(self):
+#         return f"Post: {self.content_type} - {self.user.username}"
 
-    class Meta:
-        ordering = ['-is_fixed', '-post_date']  
+#     class Meta:
+#         ordering = ['-is_fixed', '-post_date']  
